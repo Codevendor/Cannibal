@@ -1,0 +1,37 @@
+{
+    "name": "cannibal",
+    "version": "0.0.1",
+    "description": "An HTTP/2 web server written with 100% JavaScript for Nodejs. The web server can process html webpages with server side JavaScript. Has built in features for inlining JavaScript with html code. It has been built to support all HTTP/2 features like pushing and custom caching without cookies.",
+    "main": "index.js",
+    "homepage": "https://codevendor.com",
+    "type": "module",
+    "dependencies": {},
+    "scripts": {},
+    "keywords": [
+      "cannibal",
+      "webserver",
+      "web",
+      "server",
+      "http",
+      "http2",
+      "html"
+    ],
+    "author": {
+      "name": "Adam Smith",
+      "url": "https://codevendor.com/"
+    },
+    "contributors": [],
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Codevendor/cannibal.git"
+    },
+    "engines": {
+      "node": ">=12.0.0",
+      "npm": ">=5.0.0"
+    },
+    "bugs": {
+      "url": "https://github.com/Codevendor/cannibal/issues"
+    },
+    "engineStrict": true
+  }
