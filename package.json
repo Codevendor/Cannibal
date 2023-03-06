@@ -5,36 +5,38 @@
     "main": "bin/main.js",
     "homepage": "https://codevendor.com",
     "type": "module",
-    "dependencies": {},
+    "dependencies": {
+        "inferjs": "^0.0.5"
+    },
     "scripts": {},
     "keywords": [
-      "cannibal",
-      "webserver",
-      "web",
-      "server",
-      "http",
-      "http2",
-      "html"
+        "cannibal",
+        "webserver",
+        "web",
+        "server",
+        "http",
+        "http2",
+        "html"
     ],
     "author": {
-      "name": "Adam Smith",
-      "url": "https://codevendor.com/"
+        "name": "Adam Smith",
+        "url": "https://codevendor.com/"
     },
     "contributors": [],
     "license": "MIT",
     "repository": {
-      "type": "git",
-      "url": "https://github.com/Codevendor/cannibal.git"
+        "type": "git",
+        "url": "https://github.com/Codevendor/cannibal.git"
     },
     "engines": {
-      "node": ">=12.0.0",
-      "npm": ">=5.0.0"
+        "node": ">=12.0.0",
+        "npm": ">=5.0.0"
     },
     "bugs": {
-      "url": "https://github.com/Codevendor/cannibal/issues"
+        "url": "https://github.com/Codevendor/cannibal/issues"
     },
     "bin": {
-      "cannibal": "bin/main.js"
+        "cannibal": "bin/main.js"
     },
     "engineStrict": true
-  }
+}
