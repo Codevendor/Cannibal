@@ -4,12 +4,22 @@
 import { stat } from "./stat.js";
 import { readFile } from "./read-file.js";
 
+// InferJS
+import { InferObject } from "../../infer-objects/infer-object.js";
+import { InferJS } from "inferjs";
+const inferjs = new InferJS(InferObject);
+
 /**
  * Gets file data in an async way.
- * @param {string} filePath The file to get data from.
+ * @param {string} filePath - The file to get data from.
  * @returns {object} Object containing properties {err, data}
+ * @infer {string} filePath {STRING-NOT-EMPTY} - Checks if string is not empty.
+ * @inferid fsa.getFile
  */
 export async function getFile(filePath) {
+
+    // InferJS Type Check
+    inferjs.check('fsa.getFile', arguments);
 
     // Create the return object
     const obj = { 'err': null, 'data': '' };

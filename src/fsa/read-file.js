@@ -3,17 +3,27 @@
 // Imports
 import * as fs from "node:fs";
 
+// InferJS
+import { InferObject } from "../../infer-objects/infer-object.js";
+import { InferJS } from "inferjs";
+const inferjs = new InferJS(InferObject);
+
 /**
  * 
  * @param {string} file The path to the file to read.
- * @param {string} encoding The encoding to read the file into.
+ * @param {object} options The read file options.
  * @returns {object} An object containing the results.
+ * @infer {string} file {STRING-NOT-EMPTY} - Checks if string is not empty.
+ * @inferid fsa.readFile
  */
-export function readFile(file, encoding) {
+export function readFile(file, options) {
+
+    // InferJS Type Check
+    inferjs.check('fsa.readFile', arguments);
 
     return new Promise(resolve => {
 
-        fs.readFile(file, encoding, function (err, data) {
+        fs.readFile(file, options, function (err, data) {
 
             const o = {
 

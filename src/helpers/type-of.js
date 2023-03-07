@@ -2,6 +2,11 @@
 
 const REG_PARSE_OBJECT_STRING = /\[{0,1}([^\s\]]+)\s{0,}([^\s\]]+)\]{0,1}/;
 
+// InferJS
+import { InferObject } from "../../infer-objects/infer-object.js";
+import { InferJS } from "inferjs";
+const inferjs = new InferJS(InferObject);
+
 /**
  * Checks the type of a source.
  * @module cannibal
@@ -9,8 +14,12 @@ const REG_PARSE_OBJECT_STRING = /\[{0,1}([^\s\]]+)\s{0,}([^\s\]]+)\]{0,1}/;
  * @param {*} src - The source to type check.
  * @param {boolean} extended - Whether to extend the type checking and correct things wrong with type of.
  * @returns {string} - The string represent the type for the source.
+ * @inferid helpers.typeOf
  */
 export function typeOf(src, extended = false) {
+
+    // InferJS Type Check
+    inferjs.check('helpers.typeOf', arguments);
 
     const srcType = typeof src;
     switch (srcType) {

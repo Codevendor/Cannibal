@@ -4,6 +4,7 @@
  * The fsa methods for cannibal.
  * @category fsa
  * @module cannibal
+ * @inferid fsa
  */
 
 // Helper methods
