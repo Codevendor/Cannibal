@@ -11,6 +11,11 @@ import path from "node:path";
 import { lstat, readFile } from "../fsa/fsa.js";
 import { typeOf, jsonParse } from "../helpers/helpers.js";
 
+// Infers
+import { InferObject } from "../../infer-objects/infer-object.js";
+import { InferJS } from "inferjs";
+const inferjs = new InferJS(InferObject);
+
 // Regex
 const REG_SECTION = /^\[\s{0,}([^\]]+)\s{0,}\]\s{0,}#{0,}(.*)?/mis;
 const REG_KEY_VALUE = /^([^\s=]+)\s{0,}=\s{0,}(.*?)$/mis;
@@ -20,16 +25,20 @@ const REG_COMMAND = /^!([^\s]+)\s{0,}(.*?)$/mis;
  * For parsing ini files.
  * @class iniParser
  * @category parsers
+ * @inferid iniParser
  */
 export class iniParser {
 
-    /** The context of the parsed ini file. */
+    // The context of the parsed ini file. 
     #context = null;
     #fileOptions = null;
     #statOptions = null;
     #fileList = null;
 
-    /** Constructor for iniParser. */
+    /** 
+     * Constructor for iniParser. 
+     * @inferid iniParser.constructor
+     */
     constructor() {
 
         this.reset();
@@ -37,6 +46,7 @@ export class iniParser {
 
     /**
      * Resets the ini parser.
+     * @inferid iniParser.reset
      */
     reset() {
 
@@ -56,11 +66,16 @@ export class iniParser {
     /**
      * Parses an ini file in an async way.
      * @param {string} file - The ini file path to parse.
-     * @param {(null|object)} fileOptions - The file options for the read file. 
-     * @param {(null|object)} statOptions - The options for the file stat.
+     * @param {(undefined|null|object)} fileOptions - The file options for the read file. 
+     * @param {(undefined|null|object)} statOptions - The options for the file stat.
      * @returns {object} - Returns the context object.
+     * @infer {string} file {STRING-NOT-EMPTY} - Checks if string is not empty.
+     * @inferid iniParser.parseFile
      */
     async parseFile(file, fileOptions = null, statOptions = null) {
+
+        // InferJS Type Check
+        inferjs.check('iniParser.parseFile', arguments);
 
         // Reset 
         this.reset();
@@ -79,7 +94,8 @@ export class iniParser {
             this.#context.file = path.normalize(path.resolve(file));
         }
 
-        this.#context.stats = await lstat(this.#context.file, this.#statOptions);
+        const results = await lstat(this.#context.file, this.#statOptions);
+        this.#context.stats = results.stats;
 
         if (this.#context.stats.err) {
 
@@ -87,7 +103,7 @@ export class iniParser {
             return this.#context;
         }
 
-        if (!this.#context.stats.stats || !this.#context.stats.stats.isFile()) {
+        if (!this.#context.stats || !this.#context.stats.isFile()) {
 
             this.#context.err = new Error(`Parameter 'file' must be a valid .ini to parse!`);
             return this.#context;
@@ -112,11 +128,16 @@ export class iniParser {
     /**
      * Parses the ini file in a sync way.
      * @param {string} file - The ini file path to parse.
-     * @param {(null|object)} fileOptions - The file options for the read file. 
-     * @param {(null|object)} statOptions - The options for the file stat.
+     * @param {(undefined|null|object)} fileOptions - The file options for the read file. 
+     * @param {(undefined|null|object)} statOptions - The options for the file stat.
      * @returns {object} - Object containing errors, properties and data from the parsed ini file.
+     * @infer {string} file {STRING-NOT-EMPTY} - Checks if string is not empty.
+     * @inferid iniParser.parseFileSync
      */
     parseFileSync(file, fileOptions = null, statOptions = null) {
+
+        // InferJS Type Check
+        inferjs.check('iniParser.parseFileSync', arguments);
 
         // Reset 
         this.reset();
@@ -139,7 +160,7 @@ export class iniParser {
 
             this.#context.stats = fs.lstatSync(this.#context.file, this.#statOptions);
 
-            if (!this.#context.stats.stats || !this.#context.stats.stats.isFile()) {
+            if (!this.#context.stats || !this.#context.stats.isFile()) {
                 this.#context.err = new Error(`Parameter 'file' must be a valid .ini to parse!`);
                 return this.#context;
             }
@@ -169,7 +190,8 @@ export class iniParser {
      * @param {any} value - The value to set the property with.
      * @param {boolean} overwrite - Whether to overwrite property if one exists.
      * @param {number} limit - The limit of the path.
-     * @returns 
+     * @returns {object} - A Object
+     * @inferid iniParser.setValue
      */
     #setValue(object, arrayPath, value, overwrite = false, limit) {
 
@@ -188,6 +210,7 @@ export class iniParser {
     /**
      * Creates a section in the context object.
      * @param {array} section - The section to create.
+     * @inferid iniParser.#createSection
      */
     #createSection(section) {
 
@@ -217,6 +240,7 @@ export class iniParser {
      * @param {string} key - The property key to create.
      * @param {any} value - The property value to assign.
      * @returns {property} - Returns the new property.
+     * @inferid iniParser.#createProperty
      */
     #createProperty(currentSection, key, value) {
 
@@ -268,6 +292,7 @@ export class iniParser {
      * Includes an ini file or directory
      * @param {string} includePath - A file or folder path.
      * @returns {array} - Returns an array of line objects.
+     * @inferid iniParser.#include
      */
     #include(includePath) {
 
@@ -396,6 +421,7 @@ export class iniParser {
      * Corrects the string into json type.
      * @param {string} lineValue - The lineValue to rip.
      * @returns {string} - Returns the ripped string value.
+     * @inferid iniParser.#ripType
      */
     #ripType(lineValue) {
 
@@ -469,6 +495,7 @@ export class iniParser {
     /**
      * Parses an ini string.
      * @param {string} data - The data string to ini parse.
+     * @inferid iniParser.parseString
      */
     parseString(data) {
 

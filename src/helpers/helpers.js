@@ -4,6 +4,7 @@
  * The helper methods for cannibal.
  * @category helpers
  * @module cannibal
+ * @inferid helpers
  */
 
 // Helper methods
