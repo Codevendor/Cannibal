@@ -7,7 +7,7 @@
 
 
 <div align="center">
-    <img style="width: 100%" src="https://github.com/Codevendor/cannibal/blob/main/assets/images/logo.png?raw=true" />
+    <img style="width: 100%; max-width: 408px" src="https://github.com/Codevendor/cannibal/blob/main/assets/images/logo.png?raw=true" />
 </div>
 
 # Cannibal Web Server
