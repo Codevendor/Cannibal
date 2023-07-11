@@ -1,13 +1,22 @@
 'use strict';
 
+// InferJS
+import { InferObject } from "../../infer-objects/infer-object.js";
+import { InferJS } from "inferjs";
+const inferjs = new InferJS(InferObject);
+
 /**
- * Creates multi inheritance by chaining class bases.
- * @function classes
- * @category core
- * @param {...*} bases - The classes to extend.
- * @returns {object} - A mixed class.
- */
+* Creates multi inheritance by chaining class bases.
+* @function classes
+* @category core
+* @param {function} bases - The classes to extend.
+* @returns {object} - A mixed class.
+* @inferid core.classes
+*/
 export function classes(...bases) {
+
+  // InferJS Type Check
+  inferjs.check('core.classes', arguments);
 
   // The keys
   const keys = [];
